@@ -1,0 +1,10 @@
+langchain_community
+google-generativeai
+roboflow
+python-dotenv
+easyocr
+ultralytics
+torch
+numpy
+pandas
+scikit-learn==1.3.2
