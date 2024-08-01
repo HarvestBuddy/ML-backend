@@ -10,11 +10,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/api/v2/")
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/predict-image", methods=["POST"])
+@app.route("/api/v2/predict-image", methods=["POST"])
 def predict1():
     image = request.files["image"]
     image_name = image.filename
@@ -42,7 +42,7 @@ def predict1():
     else:
         return "No text detected in the image"
 
-@app.route("/generate-text", methods=["GET"])
+@app.route("/api/v2/generate-text", methods=["GET"])
 def generate_text():
     get_api = os.getenv('API_KEY')
     genai.configure(api_key=get_api)
@@ -81,7 +81,7 @@ def generate_text():
     else:
         return "No text detected in the image"
     
-@app.route("/yield", methods=["POST"])
+@app.route("/api/v2/yield", methods=["POST"])
 def yield_main():
     with open("model_pickle.pkl","rb") as f:
         mp= pickle.load(f)
