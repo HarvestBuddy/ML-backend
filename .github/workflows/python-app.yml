@@ -39,7 +39,7 @@ jobs:
         echo "${{secrets.FLASK_ENV_FILE}}" > .env
         python3 -m venv venv
         source venv/bin/activate
+        sudo rm -rf runs/
         pip install -r requirements.txt
-        set FLASK_RUN_PORT=5002
-        flask run
+        flask run --port=5002
         
