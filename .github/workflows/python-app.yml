@@ -40,6 +40,6 @@ jobs:
         python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        set FLASK_RUN_PORT=3001
+        set FLASK_RUN_PORT=5002
         flask run
         
