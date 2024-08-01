@@ -41,5 +41,5 @@ jobs:
         source venv/bin/activate
         sudo rm -rf runs/
         pip install -r requirements.txt
-        flask run --port=5002
+        gunicorn app:app
         
