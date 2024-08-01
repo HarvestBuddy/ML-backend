@@ -40,7 +40,6 @@ jobs:
         python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        pm2 stop flask-app || true
-        pm2 start venv/bin/python --name "flask-app" -- app.py
-        pm2 save
+        set FLASK_RUN_PORT=3001
+        flask run
         
