@@ -6,9 +6,13 @@ import google.generativeai as genai
 from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 import pickle
+from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app)
 
 @app.route("/api/v2/")
 def hello_world():
@@ -55,7 +59,8 @@ def generate_text():
             {plants_disease}. give me the answer in the following format:
             your plant is suffering from the {plants_disease}
             the following are the ways to aid the plant's disease.
-            make sure that the response does not have "**" or "*" symbols in it
+            make sure that the response does not have "**" or "*" symbols in it and the response should be in JSON Format. And the JSON Format should contain two keys "diagnosis" and "treatment". And the value of the key "diagnosis" should be string and the value of the key "treatment" should be a array of strings.
+            JSON Format must follow the above conditions.
             """
         )
         prompt = prompt_template.format(plants_disease=text)
@@ -77,7 +82,8 @@ def generate_text():
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = answer(plant_disease, model)
         print(response.text)
-        return response.text
+        clean_text=response.text.replace("```json","").replace("```","")
+        return clean_text
     else:
         return "No text detected in the image"
     
