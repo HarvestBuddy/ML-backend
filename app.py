@@ -38,7 +38,7 @@ def predict1():
     
     if result:
         print(result[0][-1])
-        return result[0][-1]
+        return generate_text()
     else:
         return "No text detected in the image"
 
