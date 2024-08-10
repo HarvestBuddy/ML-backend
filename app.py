@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import os
 from ultralytics import YOLO
 import easyocr
@@ -26,7 +26,7 @@ def predict1():
         image.save("./images/" + image_name)
         print("Image saved successfully")
     except Exception as e:
-        return f"Error: {str(e)}"
+        return jsonify({"error": str(e)})
     model = YOLO("./crop_best.pt")
     model.predict("./images/" + image_name, save=True, imgsz=320, conf=0.5)[0]
     
