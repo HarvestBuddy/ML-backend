@@ -8,14 +8,17 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 import numpy as np
 import cv2
-import pickle  # Add this import
+import pickle
 
 load_dotenv()
 
 app = Flask(__name__)
 
-# Enable CORS
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+# Enable CORS for all origins
+CORS(app)
+
+# Load the model once at the start
+model = YOLO("./crop_best.pt")
 
 @app.route("/api/v2/")
 def hello_world():
@@ -33,8 +36,7 @@ def predict1():
         image_np = np.frombuffer(image.read(), np.uint8)
         img = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
 
-        # Process image with YOLO model
-        model = YOLO("./crop_best.pt")
+        # Process image with the preloaded YOLO model
         results = model.predict(img, imgsz=320, conf=0.5)
 
         if results:
