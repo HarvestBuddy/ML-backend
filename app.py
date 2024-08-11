@@ -15,7 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Enable CORS
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/api/v2/")
 def hello_world():
